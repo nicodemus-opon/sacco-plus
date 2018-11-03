@@ -1,0 +1,109 @@
+{% extends 'layout.html' %} {% block body%}
+<style>
+  body {
+    background: url("/static/back_ground.jpg");
+    background-size: cover;
+  }
+</style>
+<style>
+  .jumbotron {
+    background-color: rgba(255, 255, 255, 0.0);
+  }
+
+
+  #custom-search-input {
+    margin: auto;
+    margin-top: 10px;
+    padding: 0;
+    width: 400px;
+  }
+
+  #custom-search-input .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  #custom-search-input button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    position: relative;
+    left: -28px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #D9230F;
+  }
+
+  .search-query:focus+button {
+    z-index: 3;
+  }
+</style>
+<div class="container">
+  <div class="jumbotron text-center">
+    <h1 class="display-4">Sacco Plus</h1>
+    <p class="lead">Online scalable sacco management system</p>
+    <div class="container">
+      <div class="row">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-4">
+    <div class="container marketing">
+      <!-- Three columns of text below the carousel -->
+
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="rounded-circle" src="/static/hand.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>Automated Tasks</h2>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle" src="/static/chart.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>Data Digestion and Visualization</h2>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle" src="/static/speed.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>Real Time Data Analysis</h2>
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+      <!-- /.row -->
+    </div>
+
+    <p></p>
+    <br>
+    <br>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="/pricing">Get Started</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/support">Support</a>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+
+
+{% endblock %}

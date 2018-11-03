@@ -1,0 +1,14 @@
+form class="form-signin" 
+<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                        {% else %}
+                        <div class="container">
+                                <p class="alert alert-success" role="alert"><strong>Login Successfull</strong>
+                                </div>
+
+
+
+            labels: [{% for item in session["y"] -%}
+                      "{{ item }}",
+                    {%- endfor %}],
+            datasets: [{
+              data: {{ session["x"] }}

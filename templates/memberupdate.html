@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+<script  src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+			<form method="post">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Member Name</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" name="name" value="{{session['nme']}}" placeholder="Member Name">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput2">Email address</label>
+    <input type="email" class="form-control" id="exampleFormControlInput2" name="email" value="{{session['mail']}}" placeholder="Member email address">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput3">Phone</label>
+    <input type="phone" class="form-control" id="exampleFormControlInput3" name="phone" value="{{session['phon']}}" placeholder="phone number">
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleFormControlTextarea4">Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea4" name="desc" rows="3">{{session['de']}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput5">Credibility %</label>
+    <input type="number" class="form-control" value="{{session['cred']}}" name="cred" id="exampleFormControlInput5" >
+  </div>
+  <input type="submit" class="btn btn-primary" value="Update">
+</form>
+
+    </div>
+ 
+    
+{% endblock %}

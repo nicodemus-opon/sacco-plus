@@ -1,0 +1,35 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light text-dark">
+        <a class="navbar-brand" href="/">
+          <img src="static/logo.png" width="48" height="48" alt="">Sacco Plus
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="/topics">Topics
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="mailto:nicodemusopon@gmail.com">Contact Us</a>
+            </li>
+            {% if session.logged_in %}
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/dashboard">Dashboard
+                </a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                  <a class="nav-link text-dark" href="/pricing">Pricing</a>
+                </li>
+            {% endif %}
+          </ul>
+          {% if session.logged_in %}
+          <a class="btn btn-outline-primary my-2 my-sm-0 btn-sign-custom" role="button" href="/logout">Log out</a>
+          {% else %}
+          <a class="btn btn-outline-success my-2 my-sm-0 btn-sign-custom" role="button" href="/login">Sign up/ Login</a>
+          {% endif %}
+        </div>
+      </nav>
