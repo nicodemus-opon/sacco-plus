@@ -1,131 +1,189 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+  body {
+            background-color: white;
+        }
+    </style>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="row">
+  <div class="col-2" style="padding-top:40px;">
+      {% include 'dashlinks.html'%}
+  </div>
+  <div class="col-10">
+    <div class="container">
 
-    		<nav class="navbar navbar-default navbar-static-top">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">
-							{{session["usrname"]}}
-						</a>
-					</div>
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="/logout" class="btn btn-outline "target="_blank">Log out</a></li>
-							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									Account
-									<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li class="dropdown-header">SETTINGS</li>
-										<li class=""><a href="#">Link</a></li>
-										<li class=""><a href="#">Other Link</a></li>
-										<li class=""><a href="#">Other Link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Logout</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-				<div class="container-fluid">
-					<div class="col col-md-3">			
-						<div class="panel-group" id="accordion">
-						  <div class="panel panel-default">
-							<div class="panel-heading">
-							  <h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-								Members</a>
-							  </h4>
-							</div>
-							<div id="collapse1" class="panel-collapse collapse in">
-								<ul class="list-group">
-									<li class="list-group-item"> View</li>
-									<li class="list-group-item"> Register</li>
-									<li class="list-group-item">Reports</li>
-								</ul>
-							</div>
-						  </div>
-						  <div class="panel panel-default">
-							<div class="panel-heading">
-							  <h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-								Loans</a>
-							  </h4>
-							</div>
-							<div id="collapse2" class="panel-collapse collapse">
-								<ul class="list-group">
-									<li class="list-group-item"><span class="badge">12</span> Waiting</li>
-									<li class="list-group-item"><span class="badge">5</span> Processed</li>
-								</ul>
-							</div>
-						  </div>
-							<div class="panel panel-default">
-							<div class="panel-heading">
-							  <h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-								Contributions</a>
-							  </h4>
-							</div>
-							<div id="collapse3" class="panel-collapse collapse">
-								<ul class="list-group">
-									<li class="list-group-item"><span class="badge">1</span> Dividends</li>
-									<li class="list-group-item"><span class="badge">5</span> Statistics</li>
-								</ul>
-							</div>
-						  </div>
-						</div> 
-					</div>
-					<div class="col col-md-9">
-						<div class="row">
-							<div class="col col-md-5">
+      <div></div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Members(8)</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">View Members</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Reports(8)</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">View Reports</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 40px;"></div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<div class="modal" id="example" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-danger text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Warning</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Delete Member</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Member</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Member Name</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="Member Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput2">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput2" name="email" placeholder="Member email address">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput3">Phone</label>
+            <input type="phone" class="form-control" id="exampleFormControlInput3" name="phone" placeholder="phone number">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlTextarea4">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea4" name="desc" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput5">Credibility %</label>
+            <input type="number" class="form-control" name="cred" id="exampleFormControlInput5">
+          </div>
+          <input type="submit" class="btn btn-primary" value="Add Member">
+        </form>
+      </div>
+      <div class="modal-footer">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
 <script>
-    $('.subo').click(function () {
-        var respo = [Math.floor(Math.random() * 101),$("#exampleFormControlInput1").val(),$("#exampleFormControlInput2").val(),$("#exampleFormControlInput3").val(),$("#exampleFormControlTextarea4").val(),$("#exampleFormControlInput5").val()];
-        console.log("twende kazi"); //IT WORKS!
-        
-        console.log(respo);
-        $.ajax({
-            type: 'POST',
-            url: "{{ url_for('members') }}",
-            contentType: 'application/json;charset=UTF-8',
-            //data : {'data':valuex},
-            data: JSON.stringify(respo),
-            //contentType: 'application/json',
-            success: function (data) {
-                // do something with the received data
-                window.location.href = "/dashboard/members";
-            }
-        });
+  $(".one" ).addClass( "active" );
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
+  });
 </script>
-    <!-- Bootstrap core JavaScript
+<script>
+  $('.subo').click(function () {
+    var respo = [Math.floor(Math.random() * 101), $("#exampleFormControlInput1").val(), $("#exampleFormControlInput2").val(), $("#exampleFormControlInput3").val(), $("#exampleFormControlTextarea4").val(), $("#exampleFormControlInput5").val()];
+    console.log("twende kazi"); //IT WORKS!
+
+    console.log(respo);
+    $.ajax({
+      type: 'POST',
+      url: "{{ url_for('members') }}",
+      contentType: 'application/json;charset=UTF-8',
+      //data : {'data':valuex},
+      data: JSON.stringify(respo),
+      //contentType: 'application/json',
+      success: function (data) {
+        // do something with the received data
+        window.location.href = "/dashboard/members";
+      }
+    });
+  });
+</script>
+<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
 
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-						</div>
-					</div>
-				</div>
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+{% endblock %}

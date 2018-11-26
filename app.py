@@ -103,7 +103,7 @@ def read_data():
             kop=list(row.values())
             list_of_values.append(kop)
             st="/d/"+kop[0]
-            rd="/dashboard/members/updates/"+kop[0]
+            rd="/dashboard/"+session["table"]+"s/updates/"+kop[0]
             list_of_updates.append(rd)
             lit_of_dels.append(st)
     if list_of_values==[]:
@@ -137,9 +137,12 @@ def members():
     if request.method == 'POST':
         k=str(time.time())
         k=k.split(".")
-        mo="x".join(k)
+        mo="".join(k)
+        mo=str(int(int(mo)/3))
         print(mo)
         mo=mo+str(randint(0, 19))
+        mo=mo[-8:]
+        mo=mo[::-1]
         arr=[mo,request.form["name"],request.form["email"],request.form["phone"],request.form["desc"],request.form["cred"]]
         print(arr)
         create_data(arr)
@@ -148,17 +151,43 @@ def members():
         h="localhost"
         u="root"
         p="Black11060"
-        d="saccos"
+        d="sacco_plus"
         set_db(h,u,p,d)
         connect()
         session["table"]="members"
         read_data()
         return (render_template('members.html'))
-		
+
+@app.route('/dashboard/contributions', methods=['GET', 'POST'])
+@is_logged_in
+def contributions():
+    if request.method == 'POST':
+        k=str(time.time())
+        k=k.split(".")
+        mo="".join(k)
+        mo=str(int(int(mo)/3))
+        print(mo)
+        mo=mo+str(randint(0, 19))
+        mo=mo[-8:]
+        mo=mo[::-1]
+        arr=[mo,request.form["name"],request.form["email"],request.form["phone"],request.form["desc"],request.form["cred"]]
+        print(arr)
+        create_data(arr)
+        return (redirect(url_for('members')))
+    else:
+        h="localhost"
+        u="root"
+        p="Black11060"
+        d="sacco_plus"
+        set_db(h,u,p,d)
+        connect()
+        session["table"]="contribution"
+        read_data()
+        return (render_template('contributions.html'))		
 @app.route('/d/<string:name>')
 @is_logged_in
 def delete(name):
-    cond="id = '"+name+"'"
+    cond="Memno = '"+name+"'"
     del_data(cond)
     return(redirect(url_for("members")))
 
@@ -166,7 +195,7 @@ def delete(name):
 @app.route('/dashboard/members/updates/<string:name>', methods=['GET', 'POST'])
 @is_logged_in
 def update(name):
-    cond="id = '"+name+"'"
+    cond="Memno = '"+name+"'"
     if request.method == 'POST':
         arr=[name,request.form["name"],request.form["email"],request.form["phone"],request.form["desc"],request.form["cred"]]
         update_data(arr,cond)
