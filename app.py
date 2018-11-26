@@ -229,7 +229,7 @@ def login():
         else:
             app.logger.info("PASSWORD MATCHED")
             session['logged_in'] = True
-            session['username'] = username
+            session['usrname'] = username
 
             con = sqlite3.connect('static/login.db')
             with con:

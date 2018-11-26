@@ -7,6 +7,17 @@
     </style>
 <script  src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<div class="row">
+<div class="col-2" style="padding-top:40px;">
+<ul class="list-group">
+  <li class="list-group-item "></li>
+  <li class="list-group-item active  text-white" href="dashboard/members">Members ({{session['nme']}})</li>
+  <li class="list-group-item">Loans</li>
+  <li class="list-group-item">Contributions</li>
+  <li class="list-group-item">Dividends</li>
+</ul>
+</div>
+<div class="col-10" style="padding-top:40px;">
 <div class="container">
 			<form method="post">
   <div class="form-group">
@@ -35,5 +46,5 @@
 
     </div>
  
-    
+    </div></div>
 {% endblock %}

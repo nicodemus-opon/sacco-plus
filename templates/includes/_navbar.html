@@ -8,16 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="/topics">Topics
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="mailto:nicodemusopon@gmail.com">Contact Us</a>
-            </li>
+
             {% if session.logged_in %}
             <li class="nav-item">
-                <a class="nav-link text-dark" href="/dashboard">Dashboard
+                <a class="nav-link text-dark" href="/dashboard/members">Dashboard
                 </a>
               </li>
             {% else %}
