@@ -1,51 +1,51 @@
 {% extends 'layout.html' %}
 {% block body%}
 <style>
-        body {
+    body {
               background:url("/static/back_ground3.jpg");
               background-size:cover;
              }
         </style>
 <div class="container">
-            <form action="" method="post">
-                <h2>Sacco Plus Registration</h2>
-                <div class="form-group">
-                    <label for="firstName" class="col-sm-3 control-label">User Name</label>
-                    <div class="col-sm-9">
-                        <input type="text" id="username" placeholder="Full Name" class="form-control" name="username" value="{{request.form.username }}"autofocus>
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="col-sm-3 control-label">Email</label>
-                    <div class="col-sm-9">
-                        <input type="email" id="email" placeholder="Email" class="form-control" name="email" value="{{request.form.email }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">Password</label>
-                    <div class="col-sm-9">
-                        <input type="password" id="password" placeholder="Password" class="form-control" name="password" value="{{request.form.password }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Subscription" class="col-sm-3 control-label">Subscription</label>
-                    <div class="col-sm-9">
-                        <select id="Subscription" class="form-control" name="subscription" value="{{request.form.subscription }}">
-                            <option>Premium</option>
-                            <option>Standard</option>
-                            <option>Free</option>
-                        </select>
-                    </div>
+    <form action="" method="post">
+        <h2>Sacco Plus Registration</h2>
+        <div class="form-group">
+            <label for="firstName" class="col-sm-3 control-label">User Name</label>
+            <div class="col-sm-9">
+                <input type="text" id="username" placeholder="Full Name" class="form-control" name="username" value="{{request.form.username }}"
+                    autofocus>
+                <span class="help-block"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Member Number</label>
+            <div class="col-sm-9">
+                <input type="text" id="email" placeholder="memeno" class="form-control" name="email" value="{{request.form.email }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" id="password" placeholder="Password" class="form-control" name="password" value="{{request.form.password }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Subscription" class="col-sm-3 control-label">role</label>
+            <div class="col-sm-9">
+                <select id="Subscription" class="form-control" name="subscription" value="{{request.form.subscription }}">
+                    <option>User</option>
+                    <option>Admin</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                   
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <div class="col-sm-9 col-sm-offset-3">
-                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign up</button>
-                    </div>
+            <div class="form-group">
+
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign up</button>
                 </div>
-            </form> <!-- /form -->
-        </div> <!-- ./container -->
+            </div>
+    </form> <!-- /form -->
+</div> <!-- ./container -->
 {% endblock %}

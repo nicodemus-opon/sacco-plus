@@ -168,12 +168,13 @@ def contributions():
         mo=str(int(int(mo)/3))
         print(mo)
         mo=mo+str(randint(0, 19))
-        mo=mo[-8:]
+        mo=mo[-5:]
         mo=mo[::-1]
-        arr=[mo,request.form["name"],request.form["email"],request.form["phone"],request.form["desc"],request.form["cred"]]
+        mo="CONT"+mo
+        arr=[mo,request.form["id"],request.form["date"],request.form["amount"]]
         print(arr)
         create_data(arr)
-        return (redirect(url_for('members')))
+        return (redirect(url_for('contributions')))
     else:
         h="localhost"
         u="root"
@@ -183,6 +184,7 @@ def contributions():
         connect()
         session["table"]="contribution"
         read_data()
+        print("io")
         return (render_template('contributions.html'))		
 @app.route('/d/<string:name>')
 @is_logged_in
@@ -226,23 +228,43 @@ def update(name):
 def register():
     error = None
     if request.method == 'POST':
-        conn = sqlite3.connect('static/login.db')
-        c = conn.cursor()
+        #conn = sqlite3.connect('static/login.db')
+        #c = conn.cursor()
         username = request.form['username']
         print(username)
         password = request.form['password']
         email = request.form['email']
         subscription = request.form['subscription']
+        h="localhost"
+        u="root"
+        p="Black11060"
+        d="sacco_plus"
+        set_db(h,u,p,d)
+        connect()
+        md5_object = hashlib.md5()
+        string = password.encode("utf-8")
+        md5_object.update(string)
+        password = md5_object.hexdigest()
 
         fullstring = "'" + str(username) + "'" + "," + "'" + str(password) + "'" + "," + "'" + str(
-            email) + "'" + "," + "'" + str(subscription) + "'"
+            subscription) + "'" + "," + "'" + str(email) + "'"
         print(fullstring)
-        c.execute("INSERT INTO users VALUES(" + str(fullstring) + ")")
-        conn.commit()
-        conn.close
+        #c.execute("INSERT INTO users VALUES(" + str(fullstring) + ")")
+        #conn.commit()
+        #conn.close
+        sql="INSERT INTO users VALUES(" + str(fullstring) + ")"
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
         return redirect(url_for('login'))
 
     return render_template('register.html', error=error)
+
+
+@app.route('/users')
+def usrs():
+    return render_template('users.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -259,32 +281,36 @@ def login():
             app.logger.info("PASSWORD MATCHED")
             session['logged_in'] = True
             session['usrname'] = username
-
-            con = sqlite3.connect('static/login.db')
+            con = connect()
             with con:
                 cur = con.cursor()
                 cur.execute("SELECT * FROM users")
                 rows = cur.fetchall()
                 for row in rows:
-                    dbUser = row[0]
-                    dbsub = row[3]
+                    dbUser = row["username"]
+                    dbsub = row["role"]
                     if dbUser == username:
-                        subscription = dbsub
-            session['subscription'] = subscription
-            return redirect(url_for('members'))
+                        role = dbsub
+                        cv=row["memno"]
+            session['role'] = role
+            return redirect(url_for('dashboard'))
     return render_template('login.html', error=error)
 
 
 def validate(username, password):
-    con = sqlite3.connect('static/login.db')
+    con = connect()
     completion = False
+    md5_object = hashlib.md5()
+    string = password.encode("utf-8")
+    md5_object.update(string)
+    password = md5_object.hexdigest()
     with con:
         cur = con.cursor()
         cur.execute("SELECT * FROM users")
         rows = cur.fetchall()
         for row in rows:
-            dbUser = row[0]
-            dbPass = row[1]
+            dbUser = row["username"]
+            dbPass = row["password"]
             if dbUser == username:
                 completion = check_password(dbPass, password)
     return completion

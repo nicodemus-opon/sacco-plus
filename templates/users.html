@@ -1,0 +1,177 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    .space{
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+</style>
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-8">
+        <div class="container">
+            <div class="row space">
+                <div class="col-3">
+                     <span class="">Welcome Nicopon</span>
+                </div>
+                <div class="col-3">
+                    <span class="">Account Balance:12000</span>
+                </div>
+                <div class="col-3">
+                    <span class="">Dividends: 23 %</span>
+                </div>
+                <div class="col-3">
+                        <span class="">Credibility: 23 %</span>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                     <span class="badge badge-default">Label</span>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Product
+                                </th>
+                                <th>
+                                    Payment Taken
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    TB - Monthly
+                                </td>
+                                <td>
+                                    01/04/2012
+                                </td>
+                                <td>
+                                    Default
+                                </td>
+                            </tr>
+        
+                        </tbody>
+                    </table> <span class="badge badge-default">Label</span>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Product
+                                </th>
+                                <th>
+                                    Payment Taken
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    TB - Monthly
+                                </td>
+                                <td>
+                                    01/04/2012
+                                </td>
+                                <td>
+                                    Default
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script>
+		$(document).ready(function(){
+      $('.tabz').DataTable();
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script>
+  $(".two" ).addClass( "active" );
+    $('.subo').click(function () {
+        var respo = [Math.floor(Math.random() * 101),$("#exampleFormControlInput1").val(),$("#exampleFormControlInput2").val(),$("#exampleFormControlInput3").val(),$("#exampleFormControlTextarea4").val(),$("#exampleFormControlInput5").val()];
+        console.log("twende kazi"); //IT WORKS!
+        
+        console.log(respo);
+        $.ajax({
+            type: 'POST',
+            url: "{{ url_for('members') }}",
+            contentType: 'application/json;charset=UTF-8',
+            //data : {'data':valuex},
+            data: JSON.stringify(respo),
+            //contentType: 'application/json',
+            success: function (data) {
+                // do something with the received data
+                window.location.href = "/dashboard/members";
+            }
+        });
+    });
+</script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    
+{% endblock %}
