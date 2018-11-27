@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block body %}
-    <style>
-        body {
-            background-color: white;
-        }
-    </style>
+<style>
+    body {
+        background-color: white;
+    }
+</style>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -12,7 +12,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-    .space{
+    .space {
         padding-top: 40px;
         padding-bottom: 40px;
     }
@@ -25,7 +25,7 @@
         <div class="container">
             <div class="row space">
                 <div class="col-3">
-                     <span class="">Welcome Nicopon</span>
+                    <span class="">Welcome Nicopon</span>
                 </div>
                 <div class="col-3">
                     <span class="">Account Balance:12000</span>
@@ -34,80 +34,59 @@
                     <span class="">Dividends: 23 %</span>
                 </div>
                 <div class="col-3">
-                        <span class="">Credibility: 23 %</span>
-                    </div>
+                    <span class="">Credibility: 23 %</span>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                     <span class="badge badge-default">Label</span>
-                    <table class="table">
+                    <h4>Contributions </h4>
+                    <table id="tabz" class="table table-striped tabz table-bordered display">
                         <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Product
-                                </th>
-                                <th>
-                                    Payment Taken
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                            </tr>
+                            {% for i in range(session["colsxy"]) -%}
+                            <th>
+                                <b>{{session["cols"][i]}}</b>
+                            </th>
+                            {%- endfor %}
+
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
+                            {% for i in range(session["valsxy"]) -%}
                             <tr>
+                                {% for k in range(session["colsxy"]) -%}
                                 <td>
-                                    1
+                                    {{session["vals"][i][k]}}
                                 </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Default
-                                </td>
+                                {%- endfor %}
+                                
                             </tr>
-        
+                            {%- endfor %}
                         </tbody>
-                    </table> <span class="badge badge-default">Label</span>
-                    <table class="table">
+                    </table>
+                    <h4>Loans</h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                       Request For Loan
+                      </button>
+                    <br/>
+                    <table id="tabz" class="table table-striped tabz table-bordered display">
                         <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Product
-                                </th>
-                                <th>
-                                    Payment Taken
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                            </tr>
+                            {% for i in range(session["colsxyx"]) -%}
+                            <th>
+                                <b>{{session["colsx"][i]}}</b>
+                            </th>
+                            {%- endfor %}
+
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
+                            {% for i in range(session["valsxyx"]) -%}
                             <tr>
+                                {% for k in range(session["colsxyx"]) -%}
                                 <td>
-                                    1
+                                    {{session["valsx"][i][k]}}
                                 </td>
-                                <td>
-                                    TB - Monthly
-                                </td>
-                                <td>
-                                    01/04/2012
-                                </td>
-                                <td>
-                                    Default
-                                </td>
+                                {%- endfor %}
+                                
                             </tr>
-                            
+                            {%- endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -118,28 +97,57 @@
 
     </div>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request For Loan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
 
+                    <div class="form-group">
+                        <label for="exampleFormControlInput2">Pay by Date</label>
+                        <input type="date" class="form-control" id="exampleFormControlInput2" name="date" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput3">Amount</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput3" name="amount" placeholder="amount">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Request Loan">
+                </form>
+            </div>
+            <div class="modal-footer">
+
+
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script>
-		$(document).ready(function(){
-      $('.tabz').DataTable();
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+<script>
+    $(document).ready(function () {
+        $('.tabz').DataTable();
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
-  });
-});
 </script>
 <script>
-  $(".two" ).addClass( "active" );
+    $(".two").addClass("active");
     $('.subo').click(function () {
-        var respo = [Math.floor(Math.random() * 101),$("#exampleFormControlInput1").val(),$("#exampleFormControlInput2").val(),$("#exampleFormControlInput3").val(),$("#exampleFormControlTextarea4").val(),$("#exampleFormControlInput5").val()];
+        var respo = [Math.floor(Math.random() * 101), $("#exampleFormControlInput1").val(), $("#exampleFormControlInput2").val(), $("#exampleFormControlInput3").val(), $("#exampleFormControlTextarea4").val(), $("#exampleFormControlInput5").val()];
         console.log("twende kazi"); //IT WORKS!
-        
+
         console.log(respo);
         $.ajax({
             type: 'POST',
@@ -155,23 +163,22 @@
         });
     });
 </script>
-    <!-- Bootstrap core JavaScript
+<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
 
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
 {% endblock %}

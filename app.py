@@ -185,7 +185,8 @@ def contributions():
         session["table"]="contribution"
         read_data()
         print("io")
-        return (render_template('contributions.html'))		
+        return (render_template('contributions.html'))
+
 @app.route('/d/<string:name>')
 @is_logged_in
 def delete(name):
@@ -262,14 +263,96 @@ def register():
     return render_template('register.html', error=error)
 
 
-@app.route('/users')
+@app.route('/users', methods=['GET', 'POST'])
 def usrs():
+    if request.method == 'POST':
+        k=str(time.time())
+        k=k.split(".")
+        mo="".join(k)
+        mo=str(int(int(mo)/3))
+        print(mo)
+        mo=mo+str(randint(0, 19))
+        mo=mo[-8:]
+        mo=mo[::-1]
+        status="waiting"
+        memno=session["memno"]
+        arr=[mo,memno,request.form["date"],request.form["amount"],status]
+        print(arr)
+        session["table"]="loan"
+        create_data(arr)
+        return (redirect(url_for('usrs')))
+    table="contribution"
+    session["table"]="contribution"
+    list_of_values=[]
+    list_of_cols=[]
+    lit_of_dels=[]
+    list_of_updates=[]
+    con = connect()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM "+str(table).lower())
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+            st="/d/"+kop[0]
+            rd="/dashboard/"+session["table"]+"s/updates/"+kop[0]
+            list_of_updates.append(rd)
+            lit_of_dels.append(st)
+    if list_of_values==[]:
+        list_of_values=[['UH OH ;)'],['This table is empty']]
+    session["cols"]= list_of_cols
+    session["colsxy"]= len(list_of_cols)
+    session["vals"]= list_of_values
+    session["valsxy"]= len(list_of_values)
+    session["dels"]= lit_of_dels
+    session["updates"]= list_of_updates
+
+    table="loan"
+    session["table"]="loan"
+    list_of_values=[]
+    list_of_cols=[]
+    lit_of_dels=[]
+    list_of_updates=[]
+    con = connect()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM "+str(table).lower())
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+            st="/d/"+kop[0]
+            rd="/dashboard/"+session["table"]+"s/updates/"+kop[0]
+            list_of_updates.append(rd)
+            lit_of_dels.append(st)
+    if list_of_values==[]:
+        list_of_values=[['UH OH ;)'],['This table is empty']]
+    session["colsx"]= list_of_cols
+    session["colsxyx"]= len(list_of_cols)
+    session["valsx"]= list_of_values
+    session["valsxyx"]= len(list_of_values)
+    session["delsx"]= lit_of_dels
+    session["updatesx"]= list_of_updates
     return render_template('users.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+    h="localhost"
+    u="root"
+    p="Black11060"
+    d="sacco_plus"
+    set_db(h,u,p,d)
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -292,6 +375,7 @@ def login():
                     if dbUser == username:
                         role = dbsub
                         cv=row["memno"]
+                        session['memno']=cv
             session['role'] = role
             return redirect(url_for('dashboard'))
     return render_template('login.html', error=error)
