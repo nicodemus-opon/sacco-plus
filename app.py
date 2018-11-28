@@ -195,7 +195,7 @@ def delete(name):
     return(redirect(url_for("members")))
 
 
-@app.route('/dashboard/members/updates/<string:name>', methods=['GET', 'POST'])
+@app.route('/dashboard/memberss/updates/<string:name>', methods=['GET', 'POST'])
 @is_logged_in
 def update(name):
     cond="Memno = '"+name+"'"
@@ -224,6 +224,34 @@ def update(name):
         
         return(render_template("memberupdate.html"))
 
+@app.route('/dashboard/loans/updates/<string:name>', methods=['GET', 'POST'])
+@is_logged_in
+def lns(name):
+    cond="loanid = '"+name+"'"
+    session["table"]="loan"
+    if request.method == 'POST':
+        arr=[name,session["memno"],request.form["date"],request.form["amount"],request.form["status"]]
+        update_data(arr,cond)
+        return (redirect(url_for('loans')))
+    else:
+        table=session["table"]
+        list_of_value=[]
+        con = connect()
+        cur = con.cursor()
+        cur.execute("SELECT * FROM "+str(table).lower()+" where "+cond)
+        with con:
+            rows = cur.fetchall()
+            for row in rows:
+                kop=list(row.values())
+                list_of_value.append(kop)
+        list_of_value=list_of_value[0]
+        print(list_of_value)
+        session["memno"]= list_of_value[1]
+        session["date"]= list_of_value[2]
+        session["amount"]= list_of_value[3]
+        session["status"]= list_of_value[4]
+        
+        return(render_template("loanupdate.html"))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -262,7 +290,39 @@ def register():
 
     return render_template('register.html', error=error)
 
-
+@app.route('/dashboard/loans', methods=['GET', 'POST'])
+def loans():
+    table="loan"
+    session["table"]="loan"
+    list_of_values=[]
+    list_of_cols=[]
+    lit_of_dels=[]
+    list_of_updates=[]
+    con = connect()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM "+str(table).lower())
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+            st="/d/"+kop[0]
+            rd="/dashboard/"+session["table"]+"s/updates/"+kop[0]
+            list_of_updates.append(rd)
+            lit_of_dels.append(st)
+    if list_of_values==[]:
+        list_of_values=[['UH OH ;)'],['This table is empty']]
+    session["cols"]= list_of_cols
+    session["colsxy"]= len(list_of_cols)
+    session["vals"]= list_of_values
+    session["valsxy"]= len(list_of_values)
+    session["dels"]= lit_of_dels
+    session["updates"]= list_of_updates
+    return render_template('loans.html')
 @app.route('/users', methods=['GET', 'POST'])
 def usrs():
     if request.method == 'POST':

@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+    body {
+            background-color: white;
+        }
+    </style>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="row">
+    <div class="col-2" style="padding-top:40px;">
+        {% include 'dashlinks.html'%}
+    </div>
+    <div class="col-10" style="padding-top:40px;">
+        <div class="container">
+            <form method="post">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Date</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="date" value="{{session['date']}}"
+                        >
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput2">Amount</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput2" name="amount" value="{{session['amount']}}"
+                        >
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput3">Status</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput3" name="status" value="{{session['status']}}"
+                        >
+                </div>
+                <input type="submit" class="btn btn-primary" value="Update">
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    $(".three" ).addClass( "active" );
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
+{% endblock %}

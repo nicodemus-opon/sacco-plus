@@ -9,13 +9,7 @@
 <!------ Include the above in your HEAD tag ---------->
 <div class="row">
 <div class="col-2" style="padding-top:40px;">
-<ul class="list-group">
-  <li class="list-group-item "></li>
-  <li class="list-group-item active  text-white" href="dashboard/members">Members ({{session['nme']}})</li>
-  <li class="list-group-item">Loans</li>
-  <li class="list-group-item">Contributions</li>
-  <li class="list-group-item">Dividends</li>
-</ul>
+  {% include 'dashlinks.html'%}
 </div>
 <div class="col-10" style="padding-top:40px;">
 <div class="container">
@@ -47,4 +41,15 @@
     </div>
  
     </div></div>
+    <script>
+      $(".two" ).addClass( "active" );
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
 {% endblock %}
