@@ -124,6 +124,8 @@ def calc_loans():
                 toto=list(row.values())
                 tt=toto[0]
                 print(tt)
+                if tt==None:
+                    tt=0
                 list_of_amounts.append(tt)
     y=0
     print(list_of_amounts)
@@ -183,6 +185,8 @@ def calc_contribution():
                 toto=list(row.values())
                 tt=toto[0]
                 print(tt)
+                if tt==None:
+                    tt=0
                 list_of_amounts.append(tt)
     y=0
     print(list_of_amounts)
@@ -255,11 +259,16 @@ def calc_account():
                 list_of_cols=list(rows[0].keys())
             except Exception as e:
                 list_of_cols=["empty","empty"]
-            for row in rows:
-                toto=list(row.values())
-                tt=toto[0]
-                print(tt)
-                list_of_amounts.append(tt)
+            try:
+                for row in rows:
+                    toto=list(row.values())
+                    tt=toto[0]
+                    print(tt)
+                    if tt==None:
+                        tt=0
+                    list_of_amounts.append(tt)
+            except Exception as e:
+                list_of_amounts.append(1)
     y=0
     print(list_of_amounts)
     print(list_of_values)
@@ -399,6 +408,12 @@ def dashboard():
         pass
         return (render_template('dashboard.html'))
     else:
+        calc_loans()
+        print("loans")
+        calc_contribution()
+        print("contribution")
+        calc_account()
+        print("account")
         con = connect()
         cur = con.cursor()
         table="total_dividends"
