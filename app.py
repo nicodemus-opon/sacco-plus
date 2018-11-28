@@ -482,6 +482,7 @@ def members():
         connect()
         session["table"]="members"
         read_data()
+        session["cond"]="Memno = '"
         return (render_template('members.html'))
 
 @app.route('/dashboard/contributions', methods=['GET', 'POST'])
@@ -511,12 +512,13 @@ def contributions():
         session["table"]="contribution"
         read_data()
         print("io")
+        session["cond"]="contno = '"
         return (render_template('contributions.html'))
 
 @app.route('/d/<string:name>')
 @is_logged_in
 def delete(name):
-    cond="Memno = '"+name+"'"
+    cond=session["cond"]+name+"'"
     del_data(cond)
     return(redirect(url_for("members")))
 
@@ -675,6 +677,7 @@ def loans():
     session["valsxy"]= len(list_of_values)
     session["dels"]= lit_of_dels
     session["updates"]= list_of_updates
+    session["cond"]="loanid = '"
     return render_template('loans.html')
 @app.route('/users', methods=['GET', 'POST'])
 def usrs():
