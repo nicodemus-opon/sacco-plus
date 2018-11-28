@@ -399,6 +399,46 @@ def dashboard():
         pass
         return (render_template('dashboard.html'))
     else:
+        con = connect()
+        cur = con.cursor()
+        table="total_dividends"
+        cur.execute("SELECT * FROM "+str(table).lower())
+        complist=[['Member id','Contribution']]
+        with con:
+            rows = cur.fetchall()
+            try:
+                list_of_cols=list(rows[0].keys())
+            except Exception as e:
+                list_of_cols=["empty","empty"]
+            for row in rows:
+                kop=list(row.values())
+                st=str(kop[0])
+                rd=kop[1]
+                #st="'"+st+"'"
+                #rd="'"+rd+"'"
+                mnm=[st,rd]
+                complist.append(mnm)
+                con = connect()
+        cur = con.cursor()
+        table="total_loans"
+        cur.execute("SELECT * FROM "+str(table).lower())
+        complistx=[['Member id','Loans']]
+        with con:
+            rows = cur.fetchall()
+            try:
+                list_of_cols=list(rows[0].keys())
+            except Exception as e:
+                list_of_cols=["empty","empty"]
+            for row in rows:
+                kop=list(row.values())
+                st=str(kop[0])
+                rd=kop[1]
+                #st="'"+st+"'"
+                #rd="'"+rd+"'"
+                mnm=[st,rd]
+                complistx.append(mnm)
+        session["complist"]=str(complist)
+        session["complistx"]=str(complistx)
         return (render_template('dashboard.html'))
 
 
