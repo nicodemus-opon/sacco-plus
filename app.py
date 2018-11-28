@@ -10,9 +10,16 @@ app.debug = True
 
 import pymysql as mysql
 import pymysql
+
 def calc_dividends():
     pass
 def calc_loans():
+    sql="truncate total_loans"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    con.commit()
+    print("truncated")
     table='users'
     sql="select memno from "+ table
     con = connect()
@@ -20,6 +27,7 @@ def calc_loans():
     cur.execute(sql)
     list_of_cols=[]
     list_of_values=[]
+    list_of_amounts=[]
     with con:
         rows = cur.fetchall()
         try:
@@ -30,13 +38,15 @@ def calc_loans():
             kop=list(row.values())
             list_of_values.append(kop)
     table="loan"
+    print(list_of_values)
     for x  in list_of_values:
-        sql="select amount from "+ table +" where memno='"+x+"'"
+        x=x[0]
+        print(x)
+        sql="select sum(amount) from "+ table +" where memno='"+x+"'"
         con = connect()
         cur = con.cursor()
         cur.execute(sql)
         list_of_cols=[]
-        list_of_values=[]
         with con:
             rows = cur.fetchall()
             try:
@@ -44,14 +54,161 @@ def calc_loans():
             except Exception as e:
                 list_of_cols=["empty","empty"]
             for row in rows:
-                kop=list(row.values())
-                list_of_values.append(kop)
-
+                toto=list(row.values())
+                tt=toto[0]
+                print(tt)
+                list_of_amounts.append(tt)
+    y=0
+    print(list_of_amounts)
+    print(list_of_values)
+    for x  in list_of_values:
+        x=x[0]
+        sql="insert into total_loans values('"+ x +"','"+ str(list_of_amounts[y])+"');"
+        print(sql)
+        y+=1
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+        print("inserted")
 
 def calc_contribution():
-    pass
+    sql="truncate total_contributions"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    con.commit()
+    print("truncated")
+    table='users'
+    sql="select memno from "+ table
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    list_of_values=[]
+    list_of_amounts=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+    table="contribution"
+    print(list_of_values)
+    for x  in list_of_values:
+        x=x[0]
+        print(x)
+        sql="select sum(amount) from "+ table +" where memno='"+x+"'"
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        list_of_cols=[]
+        with con:
+            rows = cur.fetchall()
+            try:
+                list_of_cols=list(rows[0].keys())
+            except Exception as e:
+                list_of_cols=["empty","empty"]
+            for row in rows:
+                toto=list(row.values())
+                tt=toto[0]
+                print(tt)
+                list_of_amounts.append(tt)
+    y=0
+    print(list_of_amounts)
+    print(list_of_values)
+    for x  in list_of_values:
+        x=x[0]
+        sql="insert into total_contributions values('"+ x +"','"+ str(list_of_amounts[y])+"');"
+        print(sql)
+        y+=1
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+        print("inserted")
+
 def calc_account():
-    pass    
+    table="total_contributions"
+    sql="select sum(amount) from "+ table +""
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            toto=list(row.values())
+            tt=toto[0]
+            print(tt)
+            totalcontrib=tt
+    sql="truncate total_dividends"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    con.commit()
+    print("truncated")
+    table='users'
+    sql="select memno from "+ table
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    list_of_values=[]
+    list_of_amounts=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+    table="contribution"
+    print(list_of_values)
+    for x  in list_of_values:
+        x=x[0]
+        print(x)
+        sql="select sum(amount) from "+ table +" where memno='"+x+"'"
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        list_of_cols=[]
+        with con:
+            rows = cur.fetchall()
+            try:
+                list_of_cols=list(rows[0].keys())
+            except Exception as e:
+                list_of_cols=["empty","empty"]
+            for row in rows:
+                toto=list(row.values())
+                tt=toto[0]
+                print(tt)
+                list_of_amounts.append(tt)
+    y=0
+    print(list_of_amounts)
+    print(list_of_values)
+    for x  in list_of_values:
+        x=x[0]
+        kkk=list_of_amounts[y]/totalcontrib
+        kkk=kkk*100
+        sql="insert into total_dividends values('"+ x +"','"+ str(kkk)+"');"
+        print(sql)
+        y+=1
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+        print("inserted")
+    
 def set_db(h,u,p,d):
     session["host"]=h
     session["username"]=u
@@ -538,6 +695,12 @@ def validate(username, password):
 def check_password(hashed_password, user_password):
     return hashed_password == user_password
 
+@app.route("/testr")
+def testr():
+    calc_loans()
+    calc_contribution()
+    calc_account()
+    return("kooo")
 
 @app.route('/logout')
 def logout():
