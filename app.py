@@ -223,6 +223,33 @@ def update(name):
         session["cred"]= list_of_value[5]
         
         return(render_template("memberupdate.html"))
+@app.route('/dashboard/contributions/updates/<string:name>', methods=['GET', 'POST'])
+@is_logged_in
+def contr(name):
+    cond="contno = '"+name+"'"
+    session["table"]="contribution"
+    if request.method == 'POST':
+        arr=[name,request.form["memno"],request.form["date"],request.form["amount"]]
+        update_data(arr,cond)
+        return (redirect(url_for('contributions')))
+    else:
+        table=session["table"]
+        list_of_value=[]
+        con = connect()
+        cur = con.cursor()
+        cur.execute("SELECT * FROM "+str(table).lower()+" where "+cond)
+        with con:
+            rows = cur.fetchall()
+            for row in rows:
+                kop=list(row.values())
+                list_of_value.append(kop)
+        list_of_value=list_of_value[0]
+        print(list_of_value)
+        session["memno"]= list_of_value[1]
+        session["date"]= list_of_value[2]
+        session["amount"]= list_of_value[3]
+        return(render_template("contribupdate.html"))
+
 
 @app.route('/dashboard/loans/updates/<string:name>', methods=['GET', 'POST'])
 @is_logged_in
