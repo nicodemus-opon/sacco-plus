@@ -25,16 +25,16 @@
         <div class="container">
             <div class="row space">
                 <div class="col-3">
-                    <span class="">Welcome Nicopon</span>
+                    <span class=""><b>Welcome </b> {{session['usrname']}}</span>
                 </div>
                 <div class="col-3">
-                    <span class="">Account Balance:12000</span>
+                    <span class=""><b>Account Balance : </b>{{session['grand']}}</span>
                 </div>
                 <div class="col-3">
-                    <span class="">Dividends: 23 %</span>
+                    <span class=""><b>Dividends : </b>  {{session['cred']}} %</span>
                 </div>
                 <div class="col-3">
-                    <span class="">Credibility: 23 %</span>
+                    <span class=""><b>Total Loans : </b>{{session['loans']}}</span>
                 </div>
             </div>
             <div class="row">

@@ -11,8 +11,75 @@ app.debug = True
 import pymysql as mysql
 import pymysql
 
-def calc_dividends():
-    pass
+def calc_ac():
+    sql="truncate account"
+    print(sql)
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    con.commit()
+    print("inserted")
+    tempconts=0
+    temploans=0
+    table="total_contributions"
+    sql="select amount from "+ table +" where memno='"+session["memno"]+"'"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            toto=list(row.values())
+            tempconts=toto[0]
+    table="total_loans"
+    sql="select amount from "+ table +" where memno='"+str(session["memno"])+"'"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            toto=list(row.values())
+            temploans=toto[0]
+    table="total_dividends"
+    cred=""
+    sql="select amount from "+ table +" where memno='"+str(session["memno"])+"'"
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            toto=list(row.values())
+            cred=toto[0]
+    grand=temploans+tempconts
+    session["grand"]=grand
+    session["loans"]=temploans
+    session["conts"]=tempconts
+    session["cred"]=cred
+    sql="insert into account values('"+ session["memno"] +"','"+ str(session["grand"])+"');"
+    print(sql)
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    con.commit()
+    print("inserted")
+
 def calc_loans():
     sql="truncate total_loans"
     con = connect()
@@ -566,6 +633,7 @@ def usrs():
         session["table"]="loan"
         create_data(arr)
         return (redirect(url_for('usrs')))
+    calc_ac()
     table="contribution"
     session["table"]="contribution"
     list_of_values=[]
