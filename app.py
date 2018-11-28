@@ -348,7 +348,13 @@ def is_logged_in(f):
 def index():
     return (render_template('index.html'))
 
-	
+
+@app.route('/dashboard/dividends')
+def div():
+    session["table"]="total_dividends"
+    read_data()
+    return (render_template('dividends.html'))
+
 def read_data():
     table=session["table"]
     list_of_values=[]
