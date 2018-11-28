@@ -10,7 +10,48 @@ app.debug = True
 
 import pymysql as mysql
 import pymysql
+def calc_dividends():
+    pass
+def calc_loans():
+    table='users'
+    sql="select memno from "+ table
+    con = connect()
+    cur = con.cursor()
+    cur.execute(sql)
+    list_of_cols=[]
+    list_of_values=[]
+    with con:
+        rows = cur.fetchall()
+        try:
+            list_of_cols=list(rows[0].keys())
+        except Exception as e:
+            list_of_cols=["empty","empty"]
+        for row in rows:
+            kop=list(row.values())
+            list_of_values.append(kop)
+    table="loan"
+    for x  in list_of_values:
+        sql="select amount from "+ table +" where memno='"+x+"'"
+        con = connect()
+        cur = con.cursor()
+        cur.execute(sql)
+        list_of_cols=[]
+        list_of_values=[]
+        with con:
+            rows = cur.fetchall()
+            try:
+                list_of_cols=list(rows[0].keys())
+            except Exception as e:
+                list_of_cols=["empty","empty"]
+            for row in rows:
+                kop=list(row.values())
+                list_of_values.append(kop)
 
+
+def calc_contribution():
+    pass
+def calc_account():
+    pass    
 def set_db(h,u,p,d):
     session["host"]=h
     session["username"]=u
@@ -376,7 +417,10 @@ def usrs():
     list_of_updates=[]
     con = connect()
     cur = con.cursor()
-    cur.execute("SELECT * FROM "+str(table).lower())
+    cvx="SELECT * FROM "+str(table).lower()+" where memno='"+str(session['memno'])+"'"
+    print(cvx)
+    cur.execute(cvx)
+    print("executered")
     with con:
         rows = cur.fetchall()
         try:
@@ -407,7 +451,7 @@ def usrs():
     list_of_updates=[]
     con = connect()
     cur = con.cursor()
-    cur.execute("SELECT * FROM "+str(table).lower())
+    cur.execute("SELECT * FROM "+str(table).lower()+" where memno='"+str(session['memno'])+"'")
     with con:
         rows = cur.fetchall()
         try:
@@ -464,7 +508,11 @@ def login():
                         cv=row["memno"]
                         session['memno']=cv
             session['role'] = role
-            return redirect(url_for('dashboard'))
+            if role=="Admin":
+                return redirect(url_for('dashboard'))
+            else:
+                return redirect(url_for('usrs'))
+            
     return render_template('login.html', error=error)
 
 
